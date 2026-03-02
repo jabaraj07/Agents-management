@@ -30,9 +30,12 @@ exports.createAgent = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Agent with given email/mobile already exists' });
     }
 
+    // include the ID of the user who is creating this agent
+    const createdBy = req.user?.id;
+
     const [result] = await db.execute(
-      'INSERT INTO agents (name, email, mobile) VALUES (?, ?, ?)',
-      [name, email, mobile],
+      'INSERT INTO agents (name, email, mobile, created_by) VALUES (?, ?, ?, ?)',
+      [name, email, mobile, createdBy],
     );
 
     const newAgent = {
@@ -40,6 +43,7 @@ exports.createAgent = async (req, res) => {
       name,
       email,
       mobile,
+      created_by: createdBy,
     };
 
     res.status(201).json({ success: true, data: newAgent });

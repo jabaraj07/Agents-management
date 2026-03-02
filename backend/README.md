@@ -45,7 +45,7 @@ This Node.js/Express backend implements authentication and agent management APIs
 All agent routes require a valid JWT token (sent via cookie or Authorization header).
 
 - `GET /api/agents` – list all agents
-- `POST /api/agents` – create an agent (name, email, mobile)
+- `POST /api/agents` – create an agent (name, email, mobile). The logged-in user's ID is recorded as `created_by` in the database.
 - `PUT /api/agents/:id` – update agent details
 - `DELETE /api/agents/:id` – delete an agent
 
