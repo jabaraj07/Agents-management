@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import './AuthPages.css';
-import SolcaeLogo from '../assets/solace-logo.svg';
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import "./AuthPages.css";
+import SolcaeLogo from "../assets/solace-logo.svg";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState('');
-  
+  const [errorMsg, setErrorMsg] = useState("");
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg('');
+    setErrorMsg("");
     setIsLoading(true);
 
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setErrorMsg(err.response?.data?.message || 'Login failed. Please try again.');
+      setErrorMsg(
+        err.response?.data?.message || "Login failed. Please try again.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -38,43 +40,51 @@ const Login = () => {
           <p className="auth-subtitle">Sign in to your account</p>
 
           {errorMsg && (
-            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+            <div
+              className="alert alert-danger alert-dismissible fade show"
+              role="alert"
+            >
               {errorMsg}
-              <button type="button" className="btn-close" onClick={() => setErrorMsg('')}></button>
+              <button
+                type="button"
+                className="btn-close"
+                onClick={() => setErrorMsg("")}
+              ></button>
             </div>
           )}
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
+            <div className="auth-field">
               <input
                 type="email"
-                className="form-control auth-input"
-                placeholder="Email address"
+                className="auth-input"
+                placeholder=" "
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <label>Email address</label>
             </div>
 
-            <div className="mb-3 position-relative">
+            <div className="auth-field password-field">
               <input
-                type={showPassword ? 'text' : 'password'}
-                className="form-control auth-input"
-                placeholder="Password"
+                type={showPassword ? "text" : "password"}
+                className="auth-input"
+                placeholder=" "
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <label>Password</label>
+
               <button
                 type="button"
                 className="auth-password-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? (
-                  <i className="bi bi-eye-slash"></i>
-                ) : (
-                  <i className="bi bi-eye"></i>
-                )}
+                <i
+                  className={`bi ${showPassword ? "bi-eye-slash" : "bi-eye"}`}
+                ></i>
               </button>
             </div>
 
@@ -101,12 +111,12 @@ const Login = () => {
               className="btn btn-primary auth-btn w-100"
               disabled={isLoading}
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           <p className="auth-footer mt-4 text-center">
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <Link to="/register" className="auth-link fw-bold">
               Sign up here
             </Link>
