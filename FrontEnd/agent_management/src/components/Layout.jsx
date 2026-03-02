@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
       </aside>
 
       <div className="main-content">
-        <header className="topbar">
+        {/* <header className="topbar">
           <div></div>
           <div className="topbar-right">
             <button className="btn btn-link text-secondary me-3">
@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
               Logout
             </button>
           </div>
-        </header>
+        </header> */}
 
         <div className="page-content">{children}</div>
       </div>
