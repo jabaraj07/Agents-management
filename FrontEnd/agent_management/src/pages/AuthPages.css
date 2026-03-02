@@ -198,74 +198,14 @@
   .auth-container {
     flex-direction: column;
     height: auto;
-    min-height: 100vh;
   }
-
-  .auth-form-section {
-    border-radius: 0;
-    padding: 30px 20px;
-    min-height: 60vh;
-  }
-
+  .auth-form-section,
   .auth-brand-section {
-    min-height: 40vh;
-    border-radius: 0;
+    width: 100%;
+    padding: 20px;
   }
-
-  .auth-title {
-    font-size: 24px;
-  }
-
-  .auth-form-wrapper {
-    max-width: 320px;
-  }
-
   .auth-logo {
     width: 150px;
     height: 150px;
   }
-}
-
-@media (max-width: 480px) {
-  .auth-form-section {
-    padding: 20px 15px;
-  }
-
-  .auth-form-wrapper {
-    max-width: 100%;
-  }
-
-  .auth-title {
-    font-size: 22px;
-  }
-
-  .auth-subtitle {
-    font-size: 13px;
-  }
-
-  .auth-input,
-  .auth-btn {
-    font-size: 14px;
-    padding: 10px 14px;
-    height: 44px;
-  }
-}
-
-/* Alert styling */
-.alert {
-  border-radius: 6px;
-  border: none;
-  font-size: 14px;
-  padding: 12px 16px;
-}
-
-.alert-danger {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.btn-close {
-  padding: 0;
-  width: 20px;
-  height: 20px;
 }
