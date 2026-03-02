@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import SolcaeLogo from '../assets/solace-logo.svg';
+import avatar from '../assets/Avatar_img.avif';
 import './Layout.css';
 
 const Layout = ({ children }) => {
@@ -38,7 +39,7 @@ const Layout = ({ children }) => {
       </aside>
 
       <div className="main-content">
-        {/* <header className="topbar">
+        <header className="topbar">
           <div></div>
           <div className="topbar-right">
             <button className="btn btn-link text-secondary me-3">
@@ -46,7 +47,7 @@ const Layout = ({ children }) => {
             </button>
             <div className="user-info">
               <img
-                src="https://via.placeholder.com/40"
+                src={avatar}
                 alt="profile"
                 className="user-avatar"
               />
@@ -59,7 +60,7 @@ const Layout = ({ children }) => {
               Logout
             </button>
           </div>
-        </header> */}
+        </header>
 
         <div className="page-content">{children}</div>
       </div>
