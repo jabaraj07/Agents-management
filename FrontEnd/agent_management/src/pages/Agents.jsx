@@ -129,7 +129,7 @@ const Agents = () => {
 
   return (
     <div className="agents-page">
-      <div className="agents-controls d-flex justify-content-between align-items-center mb-4">
+      <div className="agents-controls d-flex align-items-center mb-4">
         <div className="search-box">
           <input
             type="text"
@@ -141,7 +141,7 @@ const Agents = () => {
           <i className="bi bi-search search-icon"></i>
         </div>
         <button
-          className="btn btn-primary ms-3"
+          className="btn btn-primary add-agent-btn"
           onClick={() => handleOpenModal()}
         >
           <i className="bi bi-plus-circle"></i> Add Agents
@@ -288,7 +288,7 @@ const Agents = () => {
 
       {deleteConfirm && (
         <div className="modal-overlay" onClick={() => setDeleteConfirm(null)}>
-          <div className="modal-content confirm-modal">
+          <div className="modal-box confirm-modal">
             <div className="confirm-icon">
               <i className="bi bi-exclamation-triangle"></i>
             </div>

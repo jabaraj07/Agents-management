@@ -724,6 +724,25 @@
   background: #1e4fd6;
 }
 
+/* */
+
+.agents-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.search-box {
+  flex: 1;
+  max-width: 300px;
+}
+
+.add-agent-btn {
+  white-space: nowrap;
+  width: 200px;
+}
+
 /* Animation */
 @keyframes fadeIn {
   from {
@@ -738,6 +757,13 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .search-box {
+    max-width: 250px;
+  }
+
+  .add-agent-btn {
+    width: 180px;
+  }
   .dashboard-header {
     flex-direction: column;
     gap: 16px;
@@ -769,17 +795,32 @@
     max-width: 100%;
   }
 
-  .btn-primary {
-    width: 100%;
-    justify-content: center;
+  .modal-box {
+    width: 450px;
   }
-
+/* 
   .modal-content {
-    max-width: 95%;
-  }
+  background: #ffffff;
+  width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.2s ease-in-out;
+  overflow: hidden;
+  padding: 15px;
+} */
 }
 
 @media (max-width: 480px) {
+  .modal-box {
+    width: 350px;
+  }
+  .search-box {
+    max-width: 280px;
+  }
+
+  .add-agent-btn {
+    width: 140px;
+  }
   .dashboard-header {
     gap: 12px;
   }

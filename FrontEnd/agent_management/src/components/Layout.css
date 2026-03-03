@@ -52,7 +52,9 @@
   font-weight: 400;
   border-radius: 10px;
   text-decoration: none;
-  transition: background 0.18s ease, color 0.18s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
   white-space: nowrap;
 }
 
@@ -163,13 +165,35 @@
   pointer-events: none;
 }
 
-/* ════════════════════════════════
-   MOBILE  (≤ 768px)
-   Sidebar collapses to a bottom tab bar
-   ════════════════════════════════ */
-@media (max-width: 768px) {
+/* */
 
-     .action-buttons {
+.stats-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1150px) {
+  .stats-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+
+  .stats-row > * {
+    flex: 0 0 250px; /* fixed card width for scroll */
+  }
+}
+
+/* 
+   MOBILE  (≤ 768px)
+     - Responsive layout adjustments
+     - Sidebar → bottom nav
+     - Table → card layout
+                            */
+@media (max-width: 768px) {
+  .action-buttons {
     display: flex;
     gap: 6px;
   }
@@ -187,7 +211,7 @@
     padding: 0 12px;
     /* Move to bottom */
     order: 3;
-    border-top: 1px solid rgba(255,255,255,0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   /* Hide logo on mobile bottom bar */
@@ -299,11 +323,9 @@
   }
 }
 
-/* ════════════════════════════════
-   AGENTS TABLE → CARD LAYOUT (mobile)
-   ════════════════════════════════ */
-@media (max-width: 500px) {
+/* AGENTS TABLE → CARD LAYOUT (mobile)*/
 
+@media (max-width: 500px) {
   /* Hide the header row */
   .agents-table thead {
     display: none;
@@ -368,12 +390,8 @@
   }
 }
 
-
-/* ════════════════════════════════
-   TABLE → CARD LAYOUT (mobile)
-   ════════════════════════════════ */
+/* TABLE → CARD LAYOUT (mobile) */
 @media (max-width: 500px) {
-
   /* Hide the table header */
   .agents-table thead {
     display: none;

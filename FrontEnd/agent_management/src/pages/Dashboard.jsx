@@ -105,7 +105,7 @@ const Dashboard = () => {
         style={{
           display: "flex",
           gap: "16px",
-          flexWrap: "nowrap",
+        //   flexWrap: "nowrap",
           marginBottom: "32px",
           width: "100%",
         }}
@@ -249,7 +249,7 @@ const Dashboard = () => {
       {/* ── Delete Confirm Modal ── */}
       {deleteConfirm && (
         <div className="modal-overlay">
-          <div className="modal-content">
+          <div className="modal-box">
             <div className="modal-body">
               <h5 className="modal-title">Delete Agent</h5>
               <p className="modal-text">
