@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./Dashboard.css";
 import StatCard from "../components/StatCard";
 import { stats } from "../data/stats";
+import { SearchContext } from "../context/SearchContext";
 
 const API_BASE_URL = "http://localhost:3000/api";
 
 const Dashboard = () => {
+  const { searchTerm } = useContext(SearchContext);
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ const Dashboard = () => {
   const filteredAgents = agents.filter((agent) =>
     `${agent.name} ${agent.email} ${agent.mobile}`
       .toLowerCase()
-      .includes(searchTerm.toLowerCase()),
+      .includes(searchTerm && searchTerm.toLowerCase()),
   );
 
   const handleOpenModal = (agent = null) => {
@@ -105,7 +106,7 @@ const Dashboard = () => {
         style={{
           display: "flex",
           gap: "16px",
-        //   flexWrap: "nowrap",
+          //   flexWrap: "nowrap",
           marginBottom: "32px",
           width: "100%",
         }}
@@ -194,7 +195,9 @@ const Dashboard = () => {
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
               <h3>{isEditMode ? "Edit Agent" : "Add New Agent"}</h3>
-              <button className="close-btn" onClick={handleCloseModal}>×</button>
+              <button className="close-btn" onClick={handleCloseModal}>
+                ×
+              </button>
             </div>
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
@@ -234,7 +237,11 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn-cancel" onClick={handleCloseModal}>
+                <button
+                  type="button"
+                  className="btn-cancel"
+                  onClick={handleCloseModal}
+                >
                   Cancel
                 </button>
                 <button type="submit" className="btn-primary">
@@ -253,10 +260,14 @@ const Dashboard = () => {
             <div className="modal-body">
               <h5 className="modal-title">Delete Agent</h5>
               <p className="modal-text">
-                Are you sure you want to delete this agent? This action cannot be undone.
+                Are you sure you want to delete this agent? This action cannot
+                be undone.
               </p>
               <div className="modal-actions">
-                <button className="btn-cancel" onClick={() => setDeleteConfirm(null)}>
+                <button
+                  className="btn-cancel"
+                  onClick={() => setDeleteConfirm(null)}
+                >
                   Cancel
                 </button>
                 <button className="btn-delete" onClick={handleConfirmDelete}>
