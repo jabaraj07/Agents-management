@@ -19,30 +19,40 @@ const Layout = ({ children }) => {
     }
   };
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  const isActive = (path) => location.pathname === path;
+
+  const navItems = [
+    { to: "/dashboard",   icon: "bi-speedometer2", label: "Dashboard"  },
+    { to: "/agents",      icon: "bi-person",        label: "Agents"     },
+    { to: "/inspectors",  icon: "bi-person-badge",  label: "Inspectors" },
+    { to: "/properties",  icon: "bi-building",      label: "Properties" },
+    { to: "/inspections", icon: "bi-people",        label: "Inspections"},
+    { to: "/reports",     icon: "bi-file-text",     label: "Reports"    },
+    { to: "/audit-logs",  icon: "bi-calendar2-check",label: "Audit Logs"},
+    { to: "/settings",    icon: "bi-gear",          label: "Settings"   },
+  ];
 
   return (
     <div className="layout-wrapper">
       <aside className="sidebar">
+        {/* Logo */}
         <div className="sidebar-logo">
           <img src={SolcaeLogo} alt="Solcae" />
           <span className="sidebar-brand">Alphagnito</span>
         </div>
+
+        {/* Nav — flat list, no section labels */}
         <nav className="sidebar-nav">
-          <Link
-            to="/dashboard"
-            className={isActive("/dashboard") ? "nav-item active" : "nav-item"}
-          >
-            <i className="bi bi-speedometer2"></i> Dashboard
-          </Link>
-          <Link
-            to="/agents"
-            className={isActive("/agents") ? "nav-item active" : "nav-item"}
-          >
-            <i className="bi bi-people"></i> Agents
-          </Link>
+          {navItems.map(({ to, icon, label }) => (
+            <Link
+              key={to}
+              to={to}
+              className={isActive(to) ? "nav-item active" : "nav-item"}
+            >
+              <i className={`bi ${icon}`}></i>
+              {label}
+            </Link>
+          ))}
         </nav>
       </aside>
 
