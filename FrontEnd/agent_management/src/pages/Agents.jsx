@@ -182,24 +182,32 @@ const Agents = () => {
             <tbody>
               {filteredAgents.map((agent) => (
                 <tr key={agent.id}>
-                  <td className="agent-name">{agent.name}</td>
-                  <td className="agent-email">{agent.email}</td>
-                  <td className="agent-mobile">{agent.mobile}</td>
-                  <td className="actions-cell">
-                    <button
-                      className="btn btn-sm btn-outline-primary action-btn edit-btn"
-                      onClick={() => handleOpenModal(agent)}
-                      title="Edit"
-                    >
-                      <i className="bi bi-pencil"></i>
-                    </button>
-                    <button
-                      className="btn btn-sm btn-outline-danger action-btn delete-btn"
-                      onClick={() => handleDeleteClick(agent.id)}
-                      title="Delete"
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
+                  <td data-label="Name" className="agent-name">
+                    {agent.name}
+                  </td>
+                  <td data-label="Email" className="agent-email">
+                    {agent.email}
+                  </td>
+                  <td data-label="Mobile" className="agent-mobile">
+                    {agent.mobile}
+                  </td>
+                  <td data-label="Actions" className="actions-cell">
+                    <div className="action-buttons">
+                      <button
+                        className="btn btn-sm btn-outline-primary action-btn edit-btn"
+                        onClick={() => handleOpenModal(agent)}
+                        title="Edit"
+                      >
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                      <button
+                        className="btn btn-sm btn-outline-danger action-btn delete-btn"
+                        onClick={() => handleDeleteClick(agent.id)}
+                        title="Delete"
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
