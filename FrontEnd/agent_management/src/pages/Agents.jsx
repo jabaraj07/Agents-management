@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
-import './Dashboard.css'; // reuse same styles for table and modals
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
+import "./Dashboard.css"; // reuse same styles for table and modals
 
 const Agents = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
-  
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    mobile: '',
+    name: "",
+    email: "",
+    mobile: "",
   });
 
-  const API_BASE_URL = 'http://localhost:3000/api';
+  const API_BASE_URL = "http://localhost:3000/api";
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
     fetchAgents();
@@ -35,13 +35,13 @@ const Agents = () => {
   const fetchAgents = async () => {
     try {
       setLoading(true);
-      setError('');
+      setError("");
       const response = await axios.get(`${API_BASE_URL}/agents`, {
         withCredentials: true,
       });
       setAgents(response.data.data || []);
     } catch (err) {
-      setError('Failed to load agents. Please try again.');
+      setError("Failed to load agents. Please try again.");
       console.error(err);
     } finally {
       setLoading(false);
@@ -60,14 +60,14 @@ const Agents = () => {
     } else {
       setIsEditMode(false);
       setEditingId(null);
-      setFormData({ name: '', email: '', mobile: '' });
+      setFormData({ name: "", email: "", mobile: "" });
     }
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setFormData({ name: '', email: '', mobile: '' });
+    setFormData({ name: "", email: "", mobile: "" });
     setEditingId(null);
   };
 
@@ -81,7 +81,7 @@ const Agents = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     try {
       if (isEditMode) {
@@ -97,7 +97,8 @@ const Agents = () => {
       fetchAgents();
     } catch (err) {
       setError(
-        err.response?.data?.message || 'Failed to save agent. Please try again.'
+        err.response?.data?.message ||
+          "Failed to save agent. Please try again.",
       );
     }
   };
@@ -108,27 +109,28 @@ const Agents = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      setError('');
+      setError("");
       await axios.delete(`${API_BASE_URL}/agents/${deleteConfirm}`, {
         withCredentials: true,
       });
       setDeleteConfirm(null);
       fetchAgents();
     } catch (err) {
-      setError('Failed to delete agent. Please try again.');
+      setError("Failed to delete agent. Please try again.");
     }
   };
 
-  const filteredAgents = agents.filter((agent) =>
-    agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    agent.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    agent.mobile.includes(searchTerm)
+  const filteredAgents = agents.filter(
+    (agent) =>
+      agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      agent.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      agent.mobile.includes(searchTerm),
   );
 
   return (
     <div className="agents-page">
       <div className="agents-controls d-flex justify-content-between align-items-center mb-4">
-        <div className="search-box" style={{ maxWidth: '400px', flex: 1 }}>
+        <div className="search-box">
           <input
             type="text"
             className="form-control search-input"
@@ -138,15 +140,25 @@ const Agents = () => {
           />
           <i className="bi bi-search search-icon"></i>
         </div>
-        <button className="btn btn-primary ms-3" onClick={() => handleOpenModal()}>
+        <button
+          className="btn btn-primary ms-3"
+          onClick={() => handleOpenModal()}
+        >
           <i className="bi bi-plus-circle"></i> Add Agents
         </button>
       </div>
 
       {error && (
-        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+        <div
+          className="alert alert-danger alert-dismissible fade show"
+          role="alert"
+        >
           {error}
-          <button type="button" className="btn-close" onClick={() => setError('')}></button>
+          <button
+            type="button"
+            className="btn-close"
+            onClick={() => setError("")}
+          ></button>
         </div>
       )}
 
@@ -196,62 +208,50 @@ const Agents = () => {
         </div>
       )}
 
-      {/* copy modals from Dashboard.jsx already imported styles */}
-      {/* {showModal && (
+      {showModal && (
         <div className="modal-overlay" onClick={handleCloseModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            {/* Header */}
             <div className="modal-header">
-              <h5 className="modal-title">
-                {isEditMode ? 'Edit Agent' : 'Add New Agent'}
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                onClick={handleCloseModal}
-              ></button>
+              <h3>Add New Agent</h3>
+              <button className="close-btn" onClick={handleCloseModal}>
+                ×
+              </button>
             </div>
 
+            {/* Body */}
             <form onSubmit={handleSubmit}>
               <div className="modal-body">
-                <div className="mb-3">
-                  <label htmlFor="name" className="form-label">
-                    Full Name *
-                  </label>
+                <div className="form-group">
+                  <label>Full Name *</label>
                   <input
                     type="text"
-                    className="form-control"
-                    id="name"
                     name="name"
+                    placeholder="Enter full name"
                     value={formData.name}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label">
-                    Email Address *
-                  </label>
+                <div className="form-group">
+                  <label>Email Address *</label>
                   <input
                     type="email"
-                    className="form-control"
-                    id="email"
                     name="email"
+                    placeholder="Enter email address"
                     value={formData.email}
                     onChange={handleInputChange}
                     required
                   />
                 </div>
 
-                <div className="mb-3">
-                  <label htmlFor="mobile" className="form-label">
-                    Mobile Number (10 digits) *
-                  </label>
+                <div className="form-group">
+                  <label>Mobile Number (10 digits) *</label>
                   <input
                     type="tel"
-                    className="form-control"
-                    id="mobile"
                     name="mobile"
+                    placeholder="Enter mobile number"
                     pattern="[0-9]{10}"
                     value={formData.mobile}
                     onChange={handleInputChange}
@@ -260,90 +260,23 @@ const Agents = () => {
                 </div>
               </div>
 
+              {/* Footer */}
               <div className="modal-footer">
                 <button
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="btn-cancel"
                   onClick={handleCloseModal}
                 >
                   Cancel
                 </button>
-                <button type="submit" className="btn btn-primary">
-                  {isEditMode ? 'Update Agent' : 'Add Agent'}
+                <button type="submit" className="btn-primary">
+                  Add Agent
                 </button>
               </div>
             </form>
           </div>
         </div>
-      )} */}
-
-      {showModal && (
-  <div className="modal-overlay" onClick={handleCloseModal}>
-    <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-
-      {/* Header */}
-      <div className="modal-header">
-        <h3>Add New Agent</h3>
-        <button className="close-btn" onClick={handleCloseModal}>×</button>
-      </div>
-
-      {/* Body */}
-      <form onSubmit={handleSubmit}>
-        <div className="modal-body">
-
-          <div className="form-group">
-            <label>Full Name *</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter full name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Email Address *</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter email address"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Mobile Number (10 digits) *</label>
-            <input
-              type="tel"
-              name="mobile"
-              placeholder="Enter mobile number"
-              pattern="[0-9]{10}"
-              value={formData.mobile}
-              onChange={handleInputChange}
-              required
-            />
-          </div>
-
-        </div>
-
-        {/* Footer */}
-        <div className="modal-footer">
-          <button type="button" className="btn-cancel" onClick={handleCloseModal}>
-            Cancel
-          </button>
-          <button type="submit" className="btn-primary">
-            Add Agent
-          </button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-)}
+      )}
 
       {deleteConfirm && (
         <div className="modal-overlay" onClick={() => setDeleteConfirm(null)}>
@@ -353,7 +286,8 @@ const Agents = () => {
             </div>
             <h5 className="confirm-title">Delete Agent?</h5>
             <p className="confirm-message">
-              Are you sure you want to delete this agent? This action cannot be undone.
+              Are you sure you want to delete this agent? This action cannot be
+              undone.
             </p>
 
             <div className="confirm-buttons">
@@ -363,10 +297,7 @@ const Agents = () => {
               >
                 Cancel
               </button>
-              <button
-                className="btn btn-danger"
-                onClick={handleConfirmDelete}
-              >
+              <button className="btn btn-danger" onClick={handleConfirmDelete}>
                 <i className="bi bi-trash"></i> Delete
               </button>
             </div>

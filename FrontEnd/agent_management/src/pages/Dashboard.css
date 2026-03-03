@@ -99,33 +99,34 @@
   align-items: center;
 }
 
+/* Wrapper */
 .search-box {
   position: relative;
-  flex: 1;
-  max-width: 400px;
+  width: 250px; /* or whatever size you want */
 }
 
+/* Input */
 .search-input {
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 10px 16px 10px 38px;
+  padding-left: 40px !important;  /* 🔥 moves placeholder + text right */
+  height: 44px;
+  border-radius: 12px;
+}
+
+/* Icon */
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 14px;
-  transition: all 0.3s ease;
+  color: #94a3b8;
+  pointer-events: none; /* prevents blocking typing */
 }
 
 .search-input:focus {
   border-color: #1e3a8a;
   box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
   outline: none;
-}
-
-.search-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 16px;
 }
 
 .btn-primary {
@@ -293,19 +294,88 @@
 }
 
 /* Modal Styles */
+
+/* Overlay */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.2s ease;
-  backdrop-filter: blur(2px);
+}
+
+/* Modal Box */
+.modal-content {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1001;
+}
+
+/* Inner Padding */
+.modal-body {
+  padding: 5px;
+}
+
+/* Title */
+.modal-title {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* Text */
+.modal-text {
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Buttons Container */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Cancel Button */
+.btn-cancel {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background: #f1f5f9;
+}
+
+/* Delete Button */
+.btn-delete {
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
 }
 
 @keyframes fadeIn {
@@ -315,16 +385,6 @@
   to {
     opacity: 1;
   }
-}
-
-.modal-content {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  max-width: 550px;
-  width: 95%;
-  animation: slideUp 0.3s ease;
-  overflow: hidden;
 }
 
 @keyframes slideUp {
@@ -391,7 +451,7 @@
 
 .form-control {
   border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 18px;
   padding: 12px 16px;
   font-size: 15px;
   transition: all 0.2s ease;
@@ -549,23 +609,6 @@
   margin-bottom: 12px;
 }
 
-
-
-
-/* Overlay */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
 /* Modal Box */
 .modal-box {
   background: #ffffff;
@@ -574,6 +617,7 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.2s ease-in-out;
   overflow: hidden;
+  padding: 15px;
 }
 
 /* Header */

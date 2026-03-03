@@ -118,23 +118,27 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-page">
-   
       {/* Error */}
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {/* Controls */}
-      <div className="dashboard-controls">
-        <input
-          type="text"
-          placeholder="Search agents..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="form-control"
-        />
-
-        <button className="btn btn-primary" onClick={() => handleOpenModal()}>
-          Add New Agent
-        </button>
+      {/* Quick actions + search */}
+      <div className="quick-actions mb-4">
+        <div className="action-card">
+          <i className="bi bi-plus-circle action-icon"></i>
+          <div>Create Inspection</div>
+        </div>
+        <div className="action-card">
+          <i className="bi bi-plus-circle action-icon"></i>
+          <div>Add Property</div>
+        </div>
+        <div className="action-card">
+          <i className="bi bi-plus-circle action-icon"></i>
+          <div>Add Agent</div>
+        </div>
+        <div className="action-card">
+          <i className="bi bi-plus-circle action-icon"></i>
+          <div>Add Inspector</div>
+        </div>
       </div>
 
       {/* Table */}
@@ -257,9 +261,26 @@ const Dashboard = () => {
       {deleteConfirm && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <p>Are you sure you want to delete this agent?</p>
-            <button onClick={() => setDeleteConfirm(null)}>Cancel</button>
-            <button onClick={handleConfirmDelete}>Delete</button>
+            <div className="modal-body">
+              <h5 className="modal-title">Delete Agent</h5>
+              <p className="modal-text">
+                Are you sure you want to delete this agent? This action cannot
+                be undone.
+              </p>
+
+              <div className="modal-actions">
+                <button
+                  className="btn-cancel"
+                  onClick={() => setDeleteConfirm(null)}
+                >
+                  Cancel
+                </button>
+
+                <button className="btn-delete" onClick={handleConfirmDelete}>
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
